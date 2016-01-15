@@ -18,10 +18,12 @@ class TodoListController extends Controller
     {
         $this->authorize('show', $list);//is the user authorized to view this list
 
+        $page = $request->get('page');
+
         return view('lists.list', [
             'list' => $list,
             'tasks' => $list->tasks()->paginate(),
-            'page' => $request->get('page'),
+            'page' => $page ? $page : 1,
         ]);
     }
 }

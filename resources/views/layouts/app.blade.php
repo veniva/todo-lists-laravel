@@ -35,20 +35,11 @@
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#spark-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                <button type="button" class="menu-trigger btn btn-default">
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                 </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">Todo task lists</a>
             </div>
-
-            <div class="collapse navbar-collapse" id="spark-navbar-collapse">
+            <div id="menu">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}">Home</a></li>
@@ -75,7 +66,40 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        @include('common.messages')
+        @yield('content')
+    </div>
+    <script src="{{url('/js/jpanelmenu.min.js')}}"></script>
+    <script src="{{url('/js/jrespond.min.js')}}"></script>
+    <script type="text/javascript">
+        var jPM = $.jPanelMenu();
+        var jRes = jRespond([
+            {
+                label: 'small',
+                enter: 0,
+                exit: 800
+            },{
+                label: 'large',
+                enter: 800,
+                exit: 10000
+            }
+        ]);
 
-    @yield('content')
+        jRes.addFunc({
+            breakpoint: 'small',
+            enter: function() {
+                jPM.on();
+                $('#menu').css({display:'none'});
+                $('.menu-trigger').css({display:'block'})
+                $('#jPanelMenu-menu').addClass('navbar navbar-default')
+            },
+            exit: function() {
+                jPM.off();
+                $('#menu').css({display:'block'});
+                $('.menu-trigger').css({display:'none'})
+            }
+        });
+    </script>
 </body>
 </html>
