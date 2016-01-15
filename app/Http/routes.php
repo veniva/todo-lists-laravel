@@ -27,5 +27,24 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::get('/', function(){
+        return view('welcome');
+    });
+
+    Route::get('/home', function(){
+        return view('home');
+    });
+
+    // Authentication Routes...
+    Route::auth();
+
+    Route::get('/lists/{list}', 'TodoListController@index');
+    Route::post('/lists/add', 'TodoListController@add');
+    Route::post('/lists/edit/{list}', 'TodoListController@edit');
+    Route::delete('/lists/delete/{list}', 'TodoListController@delete');
+
+    Route::post('/tasks/add', 'TaskController@add');
+    Route::get('/tasks/edit/{task}/{page}', 'TaskController@editGet');
+    Route::post('/tasks/edit/{task}/{page}', 'TaskController@editPost');
+    Route::delete('/tasks/delete/{task}', 'TaskController@delete');
 });

@@ -23,4 +23,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get all Lists belonging to a user
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function todoLists()
+    {
+        return $this->hasMany(TodoList::class);
+    }
+
+    /**
+     * Get all Tasks belonging to a user
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
