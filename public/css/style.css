@@ -1,3 +1,33 @@
+a{
+    color: #2b542c;
+}
+
+a:focus, a:hover{
+    color: grey;
+}
 .menu-trigger{
     display:none;
+}
+
+.nav-pills>li>a{
+    background-color: #eee;
+}
+
+.nav-pills>li>a.active{
+    background-color: #DDD;
+}
+
+.nav>li>a:focus, .nav>li>a:hover{
+    background-color: #DDD;
+}
+
+.edit_list{
+    /*display: none;*/
+    position: absolute;
+    top: 10px;
+    right: 7px;
+}
+
+.edit_list:hover{
+    display: block;
 }

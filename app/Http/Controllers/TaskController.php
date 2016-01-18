@@ -7,13 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class TaskController extends Controller
+class TaskController extends BaseController
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function add(Request $request)
     {
         $this->validate($request, [
@@ -34,7 +29,7 @@ class TaskController extends Controller
         $listID = $task->todo_list_id;
         $task->delete();
 
-        $lastPage = \App\TodoList::find($listID)->tasks()->paginate()->lastPage();//last possible page
+        $lastPage = \App\TodoList::find($listID)->tasks()->paginate(config('pagination.per_page'))->lastPage();//last possible page
         $page = $request->get('page');//current page
         $page = $page <= $lastPage ? $page : $lastPage;//calculate the possible page
 
@@ -43,9 +38,10 @@ class TaskController extends Controller
 
     public function editGet(Task $task, $page)
     {
-        return view('lists.edit', [
+        return view('tasks.edit', [
             'task' => $task,
-            'page' => $page
+            'page' => $page,
+            'lists' => $this->lists,
         ]);
     }
 

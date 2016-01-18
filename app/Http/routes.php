@@ -27,20 +27,16 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/', function(){
-        return view('welcome');
-    });
 
-    Route::get('/home', function(){
-        return view('home');
-    });
+    Route::get('/', 'HomeController@index');
 
     // Authentication Routes...
     Route::auth();
 
     Route::get('/lists/{list}', 'TodoListController@index');
     Route::post('/lists/add', 'TodoListController@add');
-    Route::post('/lists/edit/{list}', 'TodoListController@edit');
+    Route::get('/lists/edit/{list}', 'TodoListController@editGet');
+    Route::post('/lists/edit/{list}', 'TodoListController@editPost');
     Route::delete('/lists/delete/{list}', 'TodoListController@delete');
 
     Route::post('/tasks/add', 'TaskController@add');

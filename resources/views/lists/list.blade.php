@@ -52,11 +52,11 @@
                             <td class="table-text"><div>{{ $task->description }}</div></td>
                             <!-- Task Delete Button -->
                             <td>
-                                <form action="{{url('/tasks/delete')}}/{{ $task->id }}?page={{$page}}" method="POST">
+                                <form id="form_del_task_{{$task->id}}" action="{{url('/tasks/delete')}}/{{ $task->id }}?page={{$page}}" method="POST">
                                     <a class="btn btn-default" href="{{url('/tasks/edit')}}/{{ $task->id }}/{{$page}}" role="button">Edit</a>
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-danger delete">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirmDelete('form_del_task_{{$task->id}}', 'task')">
                                         <i class="fa fa-trash"></i>Delete
                                     </button>
                                 </form>
@@ -69,12 +69,4 @@
             </div>
         </div>
     @endif
-    <script type="text/javascript">
-        $('.delete').click(function(){
-            if(confirm('Are you sure that you want to delete this task')){
-                $(this).parent().submit();
-            }
-            return false;
-        })
-    </script>
 @endsection

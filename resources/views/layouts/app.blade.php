@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Todo task lists</title>
+    <title>{{isset($title) ? $title : 'Todo lists app'}}</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -35,18 +35,17 @@
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="menu-trigger btn btn-default">
+                <button type="button" class="menu-trigger btn btn-default" data-toggle="collapse" data-target="#spark-navbar-collapse">
                     <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                 </button>
             </div>
-            <div id="menu">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                </ul>
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
+        </div>
+    </nav>
+    <div class="container">
+        <div id="menu" class="col-sm-2">
+            <div class="row navbar navbar-default">
+                <ul class="nav navbar-nav">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
@@ -64,42 +63,51 @@
                     @endif
                 </ul>
             </div>
+            @if (!Auth::guest())
+                <div class="row navbar navbar-default">
+                    <div class="panel-heading">Todo lists</div>
+                    <ul class="navbar nav nav-pills nav-stacked">
+                        @foreach($lists as $todoList)
+                            <li class="list_li">
+                                <a @if(isset($list->id) && $todoList->id == $list->id) class="active" @endif href="{{url('/lists')}}/{{$todoList->id}}">
+                                    {{$todoList->title}}
+                                    <div class="edit_list">
+                                        <form id="del_list_{{$todoList->id}}" action="{{url('/lists/delete/')}}/{{$todoList->id}}" method="post">
+                                            {{csrf_field()}}
+                                            {{method_field('delete')}}
+                                            <a href="{{url('/lists/edit/')}}/{{$todoList->id}}"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                            <a href="#" onclick="return confirmDelete('del_list_{{$todoList->id}}')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                        </form>
+
+                                    </div>
+                                </a>
+
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="col-md-12">
+                        <form action="{{url('/lists/add')}}" method="post">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <input type="text" name="title" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-sm btn-default">
+                                    <i class="fa fa-plus"></i>Add list
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endif
         </div>
-    </nav>
-    <div class="container">
-        @include('common.messages')
-        @yield('content')
+        <div class="col-sm-10">
+            @include('common.messages')
+            @yield('content')
+        </div>
     </div>
     <script src="{{url('/js/jpanelmenu.min.js')}}"></script>
     <script src="{{url('/js/jrespond.min.js')}}"></script>
-    <script type="text/javascript">
-        var jPM = $.jPanelMenu();
-        var jRes = jRespond([
-            {
-                label: 'small',
-                enter: 0,
-                exit: 800
-            },{
-                label: 'large',
-                enter: 800,
-                exit: 10000
-            }
-        ]);
-
-        jRes.addFunc({
-            breakpoint: 'small',
-            enter: function() {
-                jPM.on();
-                $('#menu').css({display:'none'});
-                $('.menu-trigger').css({display:'block'})
-                $('#jPanelMenu-menu').addClass('navbar navbar-default')
-            },
-            exit: function() {
-                jPM.off();
-                $('#menu').css({display:'block'});
-                $('.menu-trigger').css({display:'none'})
-            }
-        });
-    </script>
+    <script src="{{url('/js/script.js')}}"></script>
 </body>
 </html>

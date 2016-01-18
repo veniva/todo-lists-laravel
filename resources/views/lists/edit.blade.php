@@ -2,18 +2,17 @@
 
 @section('content')
     <div class="panel panel-default">
-        <div class="panel-heading">Edit Task</div>
+        <div class="panel-heading">Edit a list</div>
 
         <div class="panel-body">
-            <form action="{{url('/tasks/edit/')}}/{{ $task->id }}/{{$page}}" method="POST">
+            <form action="{{url('/lists/edit/')}}/{{ $list->id }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <textarea name="description" id="task-description" class="form-control">{{ old('description', $task->description) }}</textarea>
+                    <input name="title" class="form-control" value="{{ old('title', $list->title) }}" />
                 </div>
                 <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit Task
-                </button> or
-                <a href="{{url('/lists/')}}/{{$task->todo_list_id}}?page={{$page}}">Cancel</a>
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit List
+                </button>
             </form>
         </div>
     </div>
