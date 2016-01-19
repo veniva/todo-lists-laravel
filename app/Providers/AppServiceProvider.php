@@ -15,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layouts.app', function($view) {
+            if(!auth()->user()) return;
+
             $userId = auth()->user()->id;//user can be retrieved only after the middleware is called
             $lists = TodoList::where('user_id', $userId)->get();
             $view->with('lists', $lists);
