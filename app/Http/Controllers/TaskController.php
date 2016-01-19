@@ -9,12 +9,8 @@ use App\Http\Requests;
 
 class TaskController extends BaseController
 {
-    public function add(Request $request)
+    public function add(Requests\StoreTaskRequest $request)
     {
-        $this->validate($request, [
-            'description' => 'required|max:400',
-        ]);
-
         $request->user()->tasks()->create([
             'todo_list_id' => $request->todo_list_id,
             'description' => $request->description
@@ -24,7 +20,7 @@ class TaskController extends BaseController
 
     public function delete(Request $request, Task $task)
     {
-        $this->authorize($task);
+        $this->authorize('store', $task);
 
         $listID = $task->todo_list_id;
         $task->delete();
@@ -38,6 +34,8 @@ class TaskController extends BaseController
 
     public function editGet(Task $task, $page)
     {
+        $this->authorize('store', $task);
+
         return view('tasks.edit', [
             'task' => $task,
             'page' => $page,
@@ -45,11 +43,9 @@ class TaskController extends BaseController
         ]);
     }
 
-    public function editPost(Request $request, Task $task, $page)
+    public function editPost(Requests\StoreTaskRequest $request, Task $task, $page)
     {
-        $this->validate($request, [
-            'description' => 'required|max:400',
-        ]);
+        $this->authorize('store', $task);
 
         $task->description = trim($request->description);
         $task->save();

@@ -11,7 +11,7 @@ class TodoListController extends BaseController
 {
     public function index(Request $request, TodoList $list)
     {
-        $this->authorize('owns', $list);//check if the user owns this list
+        $this->authorize('store', $list);//check if the user owns this list
 
         $page = $request->get('page');
 
@@ -24,11 +24,8 @@ class TodoListController extends BaseController
         ]);
     }
 
-    public function add(Request $request)
+    public function add(Requests\StoreTodoListRequest $request)
     {
-        $this->validate($request, [
-            'title' => 'required|max:50',
-        ]);
 
         $list = $request->user()->todoLists()->create([
             'title' => $request->title
@@ -39,7 +36,7 @@ class TodoListController extends BaseController
 
     public function editGet(TodoList $list)
     {
-        $this->authorize('owns', $list);//check if the user owns this list
+        $this->authorize('store', $list);//check if the user owns this list
 
         return view('lists.edit', [
             'list' => $list,
@@ -47,13 +44,9 @@ class TodoListController extends BaseController
         ]);
     }
 
-    public function editPost(Request $request, TodoList $list)
+    public function editPost(Requests\StoreTodoListRequest $request, TodoList $list)
     {
-        $this->authorize('owns', $list);//check if the user owns this list
-
-        $this->validate($request, [
-            'title' => 'required|max:50',
-        ]);
+        $this->authorize('store', $list);//check if the user owns this list
 
         $list->title = $request->title;
         $list->save();
@@ -63,7 +56,7 @@ class TodoListController extends BaseController
 
     public function delete(TodoList $list)
     {
-        $this->authorize('owns', $list);//check if the user owns this list
+        $this->authorize('store', $list);//check if the user owns this list
 
         $list->delete();
 

@@ -6,9 +6,6 @@
         <div class="panel-heading">New Task</div>
 
         <div class="panel-body">
-            <!-- Display Validation Errors -->
-            @include('common.errors')
-
             <!-- New Task Form -->
             <form action="{{url('/tasks/add')}}?page={{$page}}" method="POST" class="form-horizontal">
                 {{ csrf_field() }}

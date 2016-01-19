@@ -45,25 +45,25 @@
     <div class="container">
         <div id="menu" class="col-sm-2">
             <div class="row navbar navbar-default">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <ul class="navbar nav nav-pills nav-stacked">
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
-                        </ul>
-                    @else
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                <!-- Authentication Links -->
+                @if (Auth::guest())
+                    <ul class="navbar nav nav-pills nav-stacked">
+                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    </ul>
+                @else
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    @endif
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                @endif
             </div>
             @if (!Auth::guest())
                 <div class="row navbar navbar-default">
@@ -105,6 +105,8 @@
         </div>
         <div class="col-sm-10">
             @include('common.messages')
+            <!-- Display Validation Errors -->
+            @include('common.errors')
             @yield('content')
         </div>
     </div>

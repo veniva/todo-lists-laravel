@@ -10,7 +10,7 @@ class TodoList
 {
     use HandlesAuthorization;
 
-    public function owns(User $user, ToList $list)
+    public function store(User $user, ToList $list)
     {
         return $user->id === $list->user_id;
     }
