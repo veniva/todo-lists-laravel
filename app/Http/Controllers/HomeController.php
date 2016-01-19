@@ -7,8 +7,6 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        return view('home', [
-            'lists' => $this->lists
-        ]);
+        return view('home');
     }
 }

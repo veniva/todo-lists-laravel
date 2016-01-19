@@ -20,7 +20,6 @@ class TodoListController extends BaseController
             'tasks' => $list->tasks()->paginate(config('pagination.per_page')),
             'page' => $page ? $page : 1,
             'title' => $list->title,
-            'lists' => $this->lists,
         ]);
     }
 
@@ -40,7 +39,6 @@ class TodoListController extends BaseController
 
         return view('lists.edit', [
             'list' => $list,
-            'lists' => $this->lists,
         ]);
     }
 

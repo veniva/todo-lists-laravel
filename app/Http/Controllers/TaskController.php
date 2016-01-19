@@ -39,7 +39,6 @@ class TaskController extends BaseController
         return view('tasks.edit', [
             'task' => $task,
             'page' => $page,
-            'lists' => $this->lists,
         ]);
     }
 
