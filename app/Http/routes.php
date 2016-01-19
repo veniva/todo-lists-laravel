@@ -28,6 +28,10 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
 
+    Route::get('home', function(){
+        return redirect('/', 301);
+    });
+
     Route::get('/', 'HomeController@index');
 
     // Authentication Routes...

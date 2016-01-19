@@ -67,7 +67,7 @@
                 <div class="row navbar navbar-default">
                     <div class="panel-heading">Todo lists</div>
                     <ul class="navbar nav nav-pills nav-stacked">
-                        @foreach($lists as $todoList)
+                        @forelse($lists as $todoList)
                             <li class="list_li">
                                 <a @if(isset($list->id) && $todoList->id == $list->id) class="active" @endif href="{{url('/lists')}}/{{$todoList->id}}">
                                     {{$todoList->title}}
@@ -83,7 +83,9 @@
                                 </a>
 
                             </li>
-                        @endforeach
+                        @empty
+                            <li><a>No lists</a></li>
+                        @endforelse
                     </ul>
                     <div class="col-md-12">
                         <form action="{{url('/lists/add')}}" method="post">
