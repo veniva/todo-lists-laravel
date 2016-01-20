@@ -50,7 +50,6 @@ return [
             'driver'   => 'sqlite',
             'database' => database_path('database.sqlite'),
             'prefix'   => '',
-            'exec'     => 'PRAGMA foreign_keys = 1;',  //enable delete cascade
         ],
 
         'mysql' => [
