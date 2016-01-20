@@ -11,6 +11,6 @@ class Task
 
     public function store(User $user, \App\Task $task)
     {
-        return $user->id === $task->user_id;
+        return $user->id == $task->user_id;
     }
 }

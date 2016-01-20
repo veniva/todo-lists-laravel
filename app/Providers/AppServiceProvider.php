@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
             $lists = TodoList::where('user_id', $userId)->get();
             $view->with('lists', $lists);
         });
+
+        if(config('database.default') == 'sqlite'){
+            $db = app()->make('db');
+            $db->connection()->getPdo()->exec("pragma foreign_keys=1");
+        }
     }
 
     /**

@@ -14,10 +14,18 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('todo_list_id')->index();
-            $table->integer('user_id')->index();
+            $table->integer('todo_list_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('description');
             $table->timestamps();
+
+            $table->foreign('todo_list_id')
+                ->references('id')->on('todo_lists')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

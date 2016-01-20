@@ -12,6 +12,6 @@ class TodoList
 
     public function store(User $user, ToList $list)
     {
-        return $user->id === $list->user_id;
+        return $user->id == $list->user_id;
     }
 }
