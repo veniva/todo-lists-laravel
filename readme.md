@@ -16,3 +16,9 @@ On the client side I have used:
 - jQuery  
 - jRespond.js  
 - jPanelMenu  
+  
+Visit demo at: http://todo.php-programming.net  
+User email:  demo@example.com  
+Password: Demo1234  
+  
+Visit installation instructions on the [installation wiki page](https://github.com/veniva/todo-lists-laravel/wiki/Installation)  
