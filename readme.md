@@ -17,7 +17,7 @@ On the client side I have used:
 - jRespond.js  
 - jPanelMenu  
   
-Visit demo at: http://todo.php-programming.net  
+Visit demo at: http://todo.vivanov.me  
 User email:  demo@example.com  
 Password: Demo1234  
   
